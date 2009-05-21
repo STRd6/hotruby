@@ -478,6 +478,8 @@ HotRuby.prototype = {
 				case "postexe" :
 					this.endBlocks.push(cmd[1]);
 					break;
+                                case "trace":
+                                        break;
 				case "nop" :
 					break;
 				case "reput" :
