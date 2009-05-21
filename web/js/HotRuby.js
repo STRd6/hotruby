@@ -905,6 +905,10 @@ HotRuby.prototype = {
 				return obj.__className;
 			case "number" :
 				return "Float";
+                        case "boolean" :
+                                return obj ? "TrueClass" : "FalseClass";
+                        case "string" :
+                                return "String";
 			default :
 				throw "[getClassName] unknown type : " + typeof(obj);
 		}
@@ -1118,10 +1122,16 @@ HotRuby.prototype.classes = {
 		},
 		
 		"to_s" : function(recver) {
-			if(typeof(recver) == "number")
-				return this.createRubyString(recver.toString());
-			else
-				return this.createRubyString(recver.__native.toString());
+                        
+                        switch (typeof(recver)) {
+                                case "number":
+                                case "boolean":
+                                case "string":
+                                        return this.createRubyString(recver.toString());
+                                default:
+                                        return this.createRubyString(recver.__native.toString());
+                                
+                        }
 		},
 		
 		"puts" : function(recver, args, sf) {
