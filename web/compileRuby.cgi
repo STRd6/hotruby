@@ -17,4 +17,4 @@ OutputCompileOption = {
 cgi = CGI.new
 
 puts "Content-type: text/plain\n\n"
-puts VM::InstructionSequence.compile(cgi['src'], "src", 1, OutputCompileOption).to_a.to_json
+puts RubyVM::InstructionSequence.compile(cgi['src'], "src", 1, OutputCompileOption).to_a.to_json
