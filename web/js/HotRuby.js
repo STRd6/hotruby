@@ -965,9 +965,11 @@ HotRuby.prototype = {
       },
       __native : {}
     };
-    for (var i = 0;i < ary.length; i += 2) {
+    for (var i = 0; i < ary.length; i += 2) {
       if(typeof(ary[i]) == "object" && ary[i].__className == "String") {
         hash.__native[ary[i].__native] = ary[i + 1];
+      } else if(typeof(ary[i]) == "string") {
+        hash.__native[ary[i]] = ary[i + 1];
       } else {
         throw "[createRubyHash] Unsupported. Cannot put this object to Hash";
       }
