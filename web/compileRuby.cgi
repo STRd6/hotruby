@@ -1,4 +1,4 @@
-#!/usr/local/bin/ruby
+#!/usr/bin/ruby1.9
 # Requires Ruby 1.9.0
 # The license of this source is "Ruby License"
 
