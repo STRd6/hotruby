@@ -730,9 +730,18 @@ HotRuby.prototype = {
    * @param v ruby object
    */
   rubyObjectToNative: function(v) {
-    if(typeof(v) != "object")
+    if(typeof(v) != "object") {
       return v;
-    if(v.__className == "Proc") {
+    } else if(v.__className == "Hash") {
+      var convHash = {};
+      for(var key in v.__native) {
+        if(!v.__native.hasOwnProperty(key)) {
+          continue;
+        }
+        convHash[this.rubyObjectToNative(key)] = this.rubyObjectToNative(v.__native[key]);
+      }
+      return convHash;
+    } else if(v.__className == "Proc") {
       var func = function() {
         var hr = arguments.callee.hr;
         var proc = arguments.callee.proc;
