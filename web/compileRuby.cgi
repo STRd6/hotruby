@@ -1,5 +1,5 @@
 #!/usr/bin/ruby1.9
-# Requires Ruby 1.9.0
+# Requires Ruby 1.9.1
 # The license of this source is "Ruby License"
 
 require 'json'
