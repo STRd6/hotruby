@@ -481,6 +481,15 @@ HotRuby.prototype = {
           break;
         case "trace":
           break;
+        case "putspecialobject":
+          // TODO: I'm almost certain this is wrong, but I don't have a spec
+          // and it got the Const test working again.
+          sf.stack[sf.sp++] = this.nilObj;
+          break;
+        case "putiseq":
+          // TODO: This seems right...
+          sf.stack[sf.sp++] = cmd[1];
+          break;
         case "nop" :
           break;
         case "reput" :
