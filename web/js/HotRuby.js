@@ -42,7 +42,8 @@ var HotRuby = function() {
   };
   this.topObject = {
     __className : "Object",
-    __native : {}
+    __native : {},
+    __instanceVars : {}
   };
   this.topSF = null;
 
