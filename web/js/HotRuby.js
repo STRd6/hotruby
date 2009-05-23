@@ -139,8 +139,9 @@ HotRuby.prototype = {
    * @private
    */
   runOpcode : function(opcode, classObj, methodName, self, args, parentSF, isProc, cbaseObj) {
-    if(args.length < opcode[4].arg_size)
+    if(args.length < opcode[4].arg_size) {
       throw "[runOpcode] Wrong number of arguments (" + args.length + " for " + opcode[4].arg_size + ")";
+    }
 
     // Create Stack Frame
     var sf = new HotRuby.StackFrame();
@@ -154,7 +155,9 @@ HotRuby.prototype = {
     sf.isProc = isProc;
     sf.cbaseObj = cbaseObj;
 
-    if(this.topSF == null) this.topSF = sf;
+    if(this.topSF == null) {
+      this.topSF = sf;
+    }
 
     // Copy args to localVars. Fill from last.
     for (var i = 0;i < opcode[4].arg_size; i++) {
