@@ -434,8 +434,9 @@ HotRuby.prototype = {
           break;
         case "definemethod" :
           var obj = sf.stack[--sf.sp];
-          if(sf.cbaseObj != null)
+          if(sf.cbaseObj != null) {
             obj = sf.cbaseObj;
+          }
           if (obj == null || obj == this.nilObj) {
             sf.classObj[cmd[1]] = cmd[2];
           } else {
