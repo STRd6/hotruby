@@ -43,7 +43,8 @@ var HotRuby = function() {
   this.topObject = {
     __className : "Object",
     __native : {},
-    __instanceVars : {}
+    __instanceVars : {},
+    __constantVars : {}
   };
   this.topSF = null;
 
@@ -119,11 +120,11 @@ HotRuby.prototype = {
     * @param {Array} opcode
    */
   run : function(opcode) {
-    try {
-      this.runOpcode(opcode, this.classes.Object, null, this.topObject, [], null, false, null);
-    } catch(e) {
-      alert(e);
-    }
+    //try {
+      this.runOpcode(opcode, this.classes.Object, null, this.topObject, [], null, false, this.topObject);
+    //} catch(e) {
+    //  alert(e);
+    //}
   },
 
   /**
@@ -470,14 +471,15 @@ HotRuby.prototype = {
               this.setConstant(sf, sf.classObj, cmd[1], newClass);
             }
             // Run the class definition
-            this.runOpcode(cmd[2], newClass, null, sf.self, [], sf, false, null);
+            this.runOpcode(cmd[2], newClass, null, sf.self, [], sf, false, newClass);
           } else if(cmd[3] == 1) {
             // Object-Specific Classes
-            if(cbaseObj == null || typeof(cbaseObj) != "object")
+            if(cbaseObj == null || typeof(cbaseObj) != "object") {
               throw "Not supported Object-Specific Classes on Primitive Object"
+            }
             // Run the class definition
             this.runOpcode(cmd[2], cbaseObj.__className, null, sf.self, [], sf, false, cbaseObj);
-          } else   if(cmd[3] == 2) {
+          } else if(cmd[3] == 2) {
             // TODO
             throw "Not implemented";
           }
@@ -488,9 +490,12 @@ HotRuby.prototype = {
         case "trace":
           break;
         case "putspecialobject":
-          // TODO: I'm almost certain this is wrong, but I don't have a spec
-          // and it got the Const test working again.
-          sf.stack[sf.sp++] = this.nilObj;
+          if(cmd[1] == 1) {         // VM_SPECIAL_OBJECT_VMCORE   0x01
+            // TODO: What's VMCORE?
+            sf.stack[sf.sp++] = sf.cbaseObj;
+          } else if(cmd[1] == 2 ) { // VM_SPECIAL_OBJECT_CBASE    0x02
+            sf.stack[sf.sp++] = sf.cbaseObj;
+          }
           break;
         case "putiseq":
           // TODO: This seems right...
@@ -539,8 +544,8 @@ HotRuby.prototype = {
     } else {
       // Search method in object
       //if (recver != null && recver.__methods != null) {
-      if (recver != null && typeof(recver) == "object" && "__methods" in recver) {
-        func = recver.__methods[methodName];
+      if (recver != null && typeof(recver) == "object" && recver.hasOwnProperty(methodName)) {
+        func = recver[methodName];
       }
       if (func == null) {
         //trace("recverClassName = " + recverClassName);
