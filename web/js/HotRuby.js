@@ -1144,6 +1144,14 @@ HotRuby.VM_CALL_VCALL_BIT = 16;
 // The license of this source is "Ruby License"
 HotRuby.prototype.classes = {
   "Object" : {
+    "core#define_method" : function(recver, args) {
+      return recver[args[1]] = args[2];
+    },
+
+    "core#define_singleton_method" : function(recver, args) {
+      return args[0][args[1]] = args[2];
+    },
+
     "==" : function(recver, args) {
       return recver == args[0] ? this.trueObj : this.falseObj;
     },
