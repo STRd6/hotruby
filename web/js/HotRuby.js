@@ -413,10 +413,12 @@ HotRuby.prototype = {
           if(cmd[4] & HotRuby.VM_CALL_FCALL_BIT) {
             recver = sf.self;
           }
-          if(cmd[3] instanceof Array)
+          if(cmd[3] instanceof Array) {
             cmd[3] = this.createRubyProc(cmd[3], sf);
-          if(cmd[3] != null)
+          }
+          if(cmd[3] != null) {
             args.push(cmd[3]);
+          }
           this.invokeMethod(recver, cmd[1], args, sf, cmd[4], false);
           break;
         case "invokesuper" :
