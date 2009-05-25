@@ -498,7 +498,6 @@ HotRuby.prototype = {
           }
           break;
         case "putiseq":
-          // TODO: This seems right...
           sf.stack[sf.sp++] = cmd[1];
           break;
         case "nop" :
