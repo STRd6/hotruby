@@ -1,8 +1,10 @@
+Recommended VM version: Ruby 1.9.1-p0
+
 == HotRuby
 
 HotRuby is Ruby on JavaScript and Flash.
 
-HotRuby runs opcode, compiled by YARV(Yet Another Ruby VM) on Ruby. To be precise, HotRuby is a Ruby VM on JavaScript and Flash.
+HotRuby runs opcode, compiled by YARV(Yet Another Ruby VM) on Ruby. To be precise, HotRuby is a Ruby VM on JavaScript and Flash. I recommend using Ruby 1.9.1-p0, the newer versions have been giving trouble.
 
 Most of the grammars are implemented. However, exceptions are not implemented. Most of the built-in functions and built-in classes are not implemented.
 
